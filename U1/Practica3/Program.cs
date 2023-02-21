@@ -14,6 +14,9 @@ namespace Pratica3
 
     public class Form1 : Form
     {
+        //Randoms
+        Random numeropares = new Random(Environment.ProcessorCount);
+
         Timer temporizador = new Timer();
         public Button boton1, boton2, botonbot1, botonbot2, botonbot3, botonbot4, botonbot5;
 
@@ -43,6 +46,7 @@ namespace Pratica3
 
             Random random_boton = new Random(Environment.ProcessorCount);
             Random random_boton2 = new Random(Environment.TickCount);
+            Random numerospares = new Random(Environment.TickCount);
 
             //Boton1
             this.WindowState = FormWindowState.Normal; ;
@@ -50,7 +54,7 @@ namespace Pratica3
             boton1.Size = new Size(100, 50);
             boton1.Location = new Point(random_boton.Next(10, this.Width), random_boton2.Next(10, this.Height));
             boton1.BackColor = Color.White;
-            boton1.Text = "1";
+            
 
             boton1.Click += new EventHandler(boton1_click);
 
@@ -70,14 +74,14 @@ namespace Pratica3
 
 
             temporizador.Interval = 1;
-            temporizador.Tick += boton1_Mover;
-            temporizador.Tick += boton2_Mover;
+            temporizador.Tick += boton1_Mover; //estart.Tick += (object s, EventArgs a) => restart_Tick(s, a, rows, cols);
+            temporizador.Tick += boton2_Mover; //void restart_Tick(object sender, EventArgs e,int rows, int cols)
 
 
             temporizador.Start();
 
             //Botonesbot
-
+            /*
             botonbot1 = new Button();
             botonbot1.Size = new Size(100, 50);
             botonbot1.Location = new Point(random_boton2.Next(1, this.Width), random_boton2.Next(1, this.Height));
@@ -113,6 +117,7 @@ namespace Pratica3
             temporizador.Tick += botonbot3_Mover;
             temporizador.Tick += botonbot4_Mover;
             temporizador.Tick += botonbot5_Mover;
+            */
 
         }
         private void boton1_click(object sender, EventArgs e)
@@ -121,7 +126,7 @@ namespace Pratica3
             MessageBox.Show("Hola, este es un mensaje, y ya");
 
 
-            /*
+            
             Random randomlocation = new Random(Environment.TickCount);
 
             Button botonbot = new Button();
@@ -131,15 +136,15 @@ namespace Pratica3
             botonbot.Location = new Point(randomlocation.Next(1, this.Width), randomlocation.Next(1, this.Height));
 
             botonbot.Visible = true;
-            */
+            
 
 
-            /*
+            
             for (int i = 0; i < 4; i++)
             {
                 Generar_Botones(randomlocation.Next());
             }
-            */
+            
         }
 
         private void Generar_Botones(int rnd)
@@ -203,6 +208,24 @@ namespace Pratica3
                     botonesbot = false;
                 }
 
+                Random randomlocation = new Random(Environment.TickCount);
+
+                Button botonbot = new Button();
+                botonbot.Text = "UwU";
+                botonbot.Size = new Size(50, 50);
+
+                botonbot.Location = new Point(randomlocation.Next(1, this.Width), randomlocation.Next(1, this.Height));
+
+                botonbot.Visible = true;
+
+
+
+
+                for (int i = 0; i < 5; i++)
+                {
+                    Generar_Botones(randomlocation.Next());
+                }
+
             }
             if (boton1.Location.Y < 1)
             {
@@ -213,14 +236,19 @@ namespace Pratica3
 
             boton1.Location = new Point(boton1.Location.X + movimientox, boton1.Location.Y + movimientoy);
 
+            int n = numeropares.Next(2, 8);
+            int par = n * (n + 1);
+            boton1.Text = n.ToString();
 
+            //Suma
+            /*
             boton1num = int.Parse(boton1.Text) + int.Parse(boton2.Text);
             string resultado = boton1num.ToString();
-
             if (boton1.Bounds.IntersectsWith(boton2.Bounds))
             {
                 boton1.Text = resultado;
             }
+            */
         }
 
         private void boton2_Mover(Object sender, EventArgs e)
