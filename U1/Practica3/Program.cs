@@ -20,6 +20,8 @@ namespace Pratica3
         Timer temporizador = new Timer();
         public Button boton1, boton2, botonbot1, botonbot2, botonbot3, botonbot4, botonbot5;
 
+        AnchorS
+
         int boton1num, boton2num;
 
         bool botonesbot = false;
@@ -77,6 +79,8 @@ namespace Pratica3
             temporizador.Tick += boton1_Mover; //estart.Tick += (object s, EventArgs a) => restart_Tick(s, a, rows, cols);
             temporizador.Tick += boton2_Mover; //void restart_Tick(object sender, EventArgs e,int rows, int cols)
 
+            temporizador.Tick += (object s, EventArgs a) => Botonmovimiento(s,a, botonbot1);
+
 
             temporizador.Start();
 
@@ -118,6 +122,39 @@ namespace Pratica3
             temporizador.Tick += botonbot4_Mover;
             temporizador.Tick += botonbot5_Mover;
             */
+
+        }
+
+        public static void Botonmovimiento(object sender, EventArgs e, Button boton) 
+        {
+
+            //boton2
+
+            Random movimientoboton2 = new Random(Environment.ProcessorCount);
+            Random colorboton2 = new Random(Environment.ProcessorCount);
+
+            if (boton.Location.X > this.Width - 117)
+            {
+                movimientox2 = movimientoboton2.Next(-5, -1);
+
+            }
+            if (boton.Location.X < 1)
+            {
+                movimientox2 = movimientoboton2.Next(1, 5);
+
+            }
+            if (boton.Location.Y > Form1.Height - 90)
+            {
+                movimientoy2 = movimientoboton2.Next(-5, -1);
+
+            }
+            if (boton.Location.Y < 1)
+            {
+                movimientoy2 = movimientoboton2.Next(1, 5);
+
+            }
+
+            boton2.Location = new Point(boton2.Location.X + movimientox2, boton2.Location.Y + movimientoy2);
 
         }
         private void boton1_click(object sender, EventArgs e)
