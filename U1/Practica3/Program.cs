@@ -18,9 +18,25 @@ namespace Pratica3
         Random numeropares = new Random(Environment.ProcessorCount);
 
         Timer temporizador = new Timer();
-        public Button boton1, boton2, botonbot1, botonbot2, botonbot3, botonbot4, botonbot5;
 
-        AnchorS
+        public Button boton1, boton2, botonbot2, botonbot3, botonbot4, botonbot5;
+
+        TextBox datosprogramado = new TextBox()
+        {
+
+            Text = "Ivan Antonio Siqueiros Valdes",
+            Location = new Point(100,100),
+
+        };
+
+        bool generar = false;
+
+        botontymovimiento[] botones = new botontymovimiento[200]; 
+        public int cantidaddebotones=0;
+        public int cantidaddebotoneslimite = 5;
+
+
+        int numeroboton = 0;
 
         int boton1num, boton2num;
 
@@ -32,11 +48,7 @@ namespace Pratica3
         int movimientox2 = 1, movimientoy2 = 1;
 
         //variables de los bots
-        int movimientobotx = 1, movimientoboty = 1;
-        int movimientobotx1 = 1, movimientoboty1 = 1;
-        int movimientobotx2 = 1, movimientoboty2 = 1;
-        int movimientobotx3 = 1, movimientoboty3 = 1;
-        int movimientobotx4 = 1, movimientoboty4 = 1;
+        
 
 
         System.Drawing.Color[] coloraleatorio = { Color.SeaShell, Color.Silver, Color.Coral, Color.AliceBlue, Color.AntiqueWhite, Color.Aquamarine, Color.MintCream, Color.DarkGoldenrod, Color.Gainsboro };
@@ -54,7 +66,7 @@ namespace Pratica3
             this.WindowState = FormWindowState.Normal; ;
             boton1 = new Button();
             boton1.Size = new Size(100, 50);
-            boton1.Location = new Point(random_boton.Next(10, this.Width), random_boton2.Next(10, this.Height));
+            boton1.Location = new Point(random_boton.Next(10, this.Width-110), random_boton2.Next(10, this.Height-90));
             boton1.BackColor = Color.White;
             
 
@@ -73,90 +85,70 @@ namespace Pratica3
             this.Controls.Add(boton2);
 
 
+            Button button = new Button();
 
 
             temporizador.Interval = 1;
-            temporizador.Tick += boton1_Mover; //estart.Tick += (object s, EventArgs a) => restart_Tick(s, a, rows, cols);
+            temporizador.Tick += boton1_Mover; //restart.Tick += (object s, EventArgs a) => restart_Tick(s, a, rows, cols);
             temporizador.Tick += boton2_Mover; //void restart_Tick(object sender, EventArgs e,int rows, int cols)
-
-            temporizador.Tick += (object s, EventArgs a) => Botonmovimiento(s,a, botonbot1);
-
-
+            temporizador.Tick += (object sender, EventArgs e) => generarbotonesymover(botones);
             temporizador.Start();
-
-            //Botonesbot
-            /*
-            botonbot1 = new Button();
-            botonbot1.Size = new Size(100, 50);
-            botonbot1.Location = new Point(random_boton2.Next(1, this.Width), random_boton2.Next(1, this.Height));
-            botonbot1.Text = "Boton bot 1";
-            botonbot1.BackColor = Color.LightBlue;
-
-            botonbot2 = new Button();
-            botonbot2.Size = new Size(100, 50);
-            botonbot2.Location = new Point(random_boton2.Next(1, this.Width), random_boton2.Next(1, this.Height));
-            botonbot2.Text = "Boton bot 2";
-            botonbot2.BackColor = Color.LightBlue;
-
-            botonbot3 = new Button();
-            botonbot3.Size = new Size(100, 50);
-            botonbot3.Location = new Point(random_boton2.Next(1, this.Width), random_boton2.Next(1, this.Height));
-            botonbot3.Text = "Boton bot 3";
-            botonbot3.BackColor = Color.LightBlue;
-
-            botonbot4 = new Button();
-            botonbot4.Size = new Size(100, 50);
-            botonbot4.Location = new Point(random_boton2.Next(1, this.Width), random_boton2.Next(1, this.Height));
-            botonbot4.Text = "Boton bot 4";
-            botonbot4.BackColor = Color.LightBlue;
-
-            botonbot5 = new Button();
-            botonbot5.Size = new Size(100, 50);
-            botonbot5.Location = new Point(random_boton2.Next(1, 150), random_boton2.Next(1, 150));
-            botonbot5.Text = "Boton bot 5";
-            botonbot5.BackColor = Color.LightBlue;
-
-            temporizador.Tick += botonbot1_Mover;
-            temporizador.Tick += botonbot2_Mover;
-            temporizador.Tick += botonbot3_Mover;
-            temporizador.Tick += botonbot4_Mover;
-            temporizador.Tick += botonbot5_Mover;
-            */
+    
 
         }
 
-        public static void Botonmovimiento(object sender, EventArgs e, Button boton) 
+        public void generarbotonesymover(botontymovimiento[] botones) 
         {
+            Random movimientobot = new Random(Environment.TickCount);
 
-            //boton2
-
-            Random movimientoboton2 = new Random(Environment.ProcessorCount);
-            Random colorboton2 = new Random(Environment.ProcessorCount);
-
-            if (boton.Location.X > this.Width - 117)
+            if (generar == true)
+            while (cantidaddebotones < cantidaddebotoneslimite)
             {
-                movimientox2 = movimientoboton2.Next(-5, -1);
-
-            }
-            if (boton.Location.X < 1)
-            {
-                movimientox2 = movimientoboton2.Next(1, 5);
-
-            }
-            if (boton.Location.Y > Form1.Height - 90)
-            {
-                movimientoy2 = movimientoboton2.Next(-5, -1);
-
-            }
-            if (boton.Location.Y < 1)
-            {
-                movimientoy2 = movimientoboton2.Next(1, 5);
-
+                botones[cantidaddebotones].boton = new Button() { Text = "bot" };
+                botones[cantidaddebotones].boton.Location = new Point(movimientobot.Next(1, this.Width-110), movimientobot.Next(1, this.Height-90));
+                botones[cantidaddebotones].movimientoy = 1;
+                botones[cantidaddebotones].movimientox = 1;
+                this.Controls.Add(botones[cantidaddebotones].boton); 
+                cantidaddebotones++;
             }
 
-            boton2.Location = new Point(boton2.Location.X + movimientox2, boton2.Location.Y + movimientoy2);
+            if(generar == true)
+            cantidaddebotoneslimite = cantidaddebotoneslimite + 5;
+
+
+            for (int i = 0; i < cantidaddebotones; i++)
+            {
+                Random aletoriedadmovimientobot = new Random(Environment.CurrentManagedThreadId);
+
+                if (botones[i].boton.Location.X > this.Width - 117)
+                {
+                    botones[i].movimientox = aletoriedadmovimientobot.Next(-5, -1);
+
+                }
+                if (botones[i].boton.Location.X < 1)
+                {
+                    botones[i].movimientox =  aletoriedadmovimientobot.Next(1, 5);
+                    
+                }
+                if (botones[i].boton.Location.Y > this.Height - 90)
+                {
+                    botones[i].movimientoy = aletoriedadmovimientobot.Next(-5, -1);
+                    
+                }
+                if (botones[i].boton.Location.Y < 1)
+                {
+                    botones[i].movimientoy = aletoriedadmovimientobot.Next(1, 5);
+                    
+
+                }
+
+                botones[i].boton.Location = new Point(botones[i].boton.Location.X + botones[i].movimientox, botones[i].boton.Location.Y + botones[i].movimientoy);
+
+            }
 
         }
+        
+
         private void boton1_click(object sender, EventArgs e)
         {
 
@@ -205,63 +197,27 @@ namespace Pratica3
 
         private void boton1_Mover(Object sender, EventArgs e)
         {
-            Random movimientoboton1 = new Random(Environment.TickCount);
+            Random movimientoboton1= new Random(Environment.ProcessorCount);
             Random colorboton1 = new Random(Environment.TickCount);
 
             if (boton1.Location.X > this.Width - 117)
             {
                 movimientox = movimientoboton1.Next(-5, -1);
-                this.BackColor = coloraleatorio[colorboton1.Next(0, 9)];
+                this.Controls.Add(datosprogramado);
             }
             if (boton1.Location.X < 1)
             {
                 movimientox = movimientoboton1.Next(1, 5);
-                this.BackColor = coloraleatorio[colorboton1.Next(0, 9)];
+                boton1.BackColor = coloraleatorio[colorboton1.Next(0, 9)]; ;
             }
             if (boton1.Location.Y > this.Height - 90)
             {
                 movimientoy = movimientoboton1.Next(-5, -1);
-                this.BackColor = coloraleatorio[colorboton1.Next(0, 9)];
+                
 
-                //agregar botones cuando toque abajo
-
-                if (botonesbot == false)
-                {
-                    botonesbot = true;
-
-                    this.Controls.Add(botonbot1);
-                    this.Controls.Add(botonbot2);
-                    this.Controls.Add(botonbot3);
-                    this.Controls.Add(botonbot4);
-                    this.Controls.Add(botonbot5);
-                }
-                else
-                {
-                    this.Controls.Remove(botonbot1);
-                    this.Controls.Remove(botonbot2);
-                    this.Controls.Remove(botonbot3);
-                    this.Controls.Remove(botonbot4);
-                    this.Controls.Remove(botonbot5);
-                    botonesbot = false;
-                }
-
-                Random randomlocation = new Random(Environment.TickCount);
-
-                Button botonbot = new Button();
-                botonbot.Text = "UwU";
-                botonbot.Size = new Size(50, 50);
-
-                botonbot.Location = new Point(randomlocation.Next(1, this.Width), randomlocation.Next(1, this.Height));
-
-                botonbot.Visible = true;
-
-
-
-
-                for (int i = 0; i < 5; i++)
-                {
-                    Generar_Botones(randomlocation.Next());
-                }
+                generar = true;
+                generarbotonesymover(botones);
+                generar = false;
 
             }
             if (boton1.Location.Y < 1)
@@ -271,21 +227,13 @@ namespace Pratica3
 
             }
 
+
             boton1.Location = new Point(boton1.Location.X + movimientox, boton1.Location.Y + movimientoy);
 
             int n = numeropares.Next(2, 8);
             int par = n * (n + 1);
             boton1.Text = n.ToString();
 
-            //Suma
-            /*
-            boton1num = int.Parse(boton1.Text) + int.Parse(boton2.Text);
-            string resultado = boton1num.ToString();
-            if (boton1.Bounds.IntersectsWith(boton2.Bounds))
-            {
-                boton1.Text = resultado;
-            }
-            */
         }
 
         private void boton2_Mover(Object sender, EventArgs e)
@@ -294,6 +242,7 @@ namespace Pratica3
 
             Random movimientoboton2 = new Random(Environment.ProcessorCount);
             Random colorboton2 = new Random(Environment.ProcessorCount);
+            Random numerosimpar = new Random(Environment.TickCount);
 
             if (boton2.Location.X > this.Width - 117)
             {
@@ -303,182 +252,53 @@ namespace Pratica3
             if (boton2.Location.X < 1)
             {
                 movimientox2 = movimientoboton2.Next(1, 5);
-
+                this.BackColor = coloraleatorio[colorboton2.Next(1,9)];
+                if(datosprogramado.Enabled)
+                this.Controls.Remove(datosprogramado);
             }
             if (boton2.Location.Y > this.Height - 90)
             {
                 movimientoy2 = movimientoboton2.Next(-5, -1);
 
+                int botonremovido = 0;
+                for (int i = 0; i < 100; i++)
+                {
+                    if (botones[i].boton != null)
+                    {
+                        this.Controls.Remove(botones[i].boton);
+                        botonremovido++;
+                    }
+                    if (botonremovido == 3)
+                        i = 100;
+                }
+
             }
             if (boton2.Location.Y < 1)
             {
                 movimientoy2 = movimientoboton2.Next(1, 5);
-
+                
             }
 
             boton2.Location = new Point(boton2.Location.X + movimientox2, boton2.Location.Y + movimientoy2);
 
+            int n = numerosimpar.Next(1,20);
+            if (n % 2 !=0)
+            {
+                boton2.Text =n.ToString();
+            }
+
 
         }
 
-        private void botonbot1_Mover(Object sender, EventArgs e)
+        public struct botontymovimiento 
         {
-            //boton2
 
-            Random movimientoboton = new Random(Environment.ProcessorCount);
-            Random colorboton = new Random(Environment.ProcessorCount);
-
-            if (botonbot1.Location.X > this.Width - 117)
-            {
-                movimientobotx = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot1.Location.X < 1)
-            {
-                movimientobotx = movimientoboton.Next(1, 5);
-
-            }
-            if (botonbot1.Location.Y > this.Height - 90)
-            {
-                movimientoboty = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot1.Location.Y < 1)
-            {
-                movimientoboty = movimientoboton.Next(1, 5);
-
-            }
-
-            botonbot1.Location = new Point(botonbot1.Location.X + movimientobotx, botonbot1.Location.Y + movimientoboty);
-
-
+            public int movimientox;
+            public int movimientoy;
+            public Button boton;
+            
+        
         }
-
-        private void botonbot2_Mover(Object sender, EventArgs e)
-        {
-            Random movimientoboton = new Random(Environment.ProcessorCount);
-            Random colorboton = new Random(Environment.ProcessorCount);
-
-            if (botonbot2.Location.X > this.Width - 117)
-            {
-                movimientobotx1 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot2.Location.X < 1)
-            {
-                movimientobotx1 = movimientoboton.Next(1, 5);
-
-            }
-            if (botonbot2.Location.Y > this.Height - 90)
-            {
-                movimientoboty1 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot2.Location.Y < 1)
-            {
-                movimientoboty1 = movimientoboton.Next(1, 5);
-
-            }
-
-            botonbot2.Location = new Point(botonbot2.Location.X + movimientobotx1, botonbot2.Location.Y + movimientoboty1);
-
-
-        }
-
-        private void botonbot3_Mover(Object sender, EventArgs e)
-        {
-            Random movimientoboton = new Random(Environment.ProcessorCount);
-            Random colorboton = new Random(Environment.ProcessorCount);
-
-            if (botonbot3.Location.X > this.Width - 117)
-            {
-                movimientobotx2 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot3.Location.X < 1)
-            {
-                movimientobotx2 = movimientoboton.Next(1, 5);
-
-            }
-            if (botonbot3.Location.Y > this.Height - 90)
-            {
-                movimientoboty2 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot3.Location.Y < 1)
-            {
-                movimientoboty2 = movimientoboton.Next(1, 5);
-
-            }
-
-            botonbot3.Location = new Point(botonbot3.Location.X + movimientobotx2, botonbot3.Location.Y + movimientoboty2);
-
-
-        }
-
-        private void botonbot4_Mover(Object sender, EventArgs e)
-        {
-            Random movimientoboton = new Random(Environment.ProcessorCount);
-            Random colorboton = new Random(Environment.ProcessorCount);
-
-            if (botonbot4.Location.X > this.Width - 117)
-            {
-                movimientobotx3 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot4.Location.X < 1)
-            {
-                movimientobotx3 = movimientoboton.Next(1, 5);
-
-            }
-            if (botonbot4.Location.Y > this.Height - 90)
-            {
-                movimientoboty3 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot4.Location.Y < 1)
-            {
-                movimientoboty3 = movimientoboton.Next(1, 5);
-
-            }
-
-            botonbot4.Location = new Point(botonbot4.Location.X + movimientobotx3, botonbot4.Location.Y + movimientoboty3);
-
-
-        }
-
-        private void botonbot5_Mover(Object sender, EventArgs e)
-        {
-            Random movimientoboton = new Random(Environment.ProcessorCount);
-            Random colorboton = new Random(Environment.ProcessorCount);
-
-            if (botonbot5.Location.X > this.Width - 117)
-            {
-                movimientobotx4 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot5.Location.X < 1)
-            {
-                movimientobotx4 = movimientoboton.Next(1, 5);
-
-            }
-            if (botonbot5.Location.Y > this.Height - 90)
-            {
-                movimientoboty4 = movimientoboton.Next(-5, -1);
-
-            }
-            if (botonbot5.Location.Y < 1)
-            {
-                movimientoboty4 = movimientoboton.Next(1, 5);
-
-            }
-
-            botonbot5.Location = new Point(botonbot5.Location.X + movimientobotx4, botonbot5.Location.Y + movimientoboty4);
-
-
-        }
-
-
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
