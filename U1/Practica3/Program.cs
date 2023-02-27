@@ -207,7 +207,7 @@ namespace Pratica3
             }
             if (boton1.Location.X < 1)
             {
-                movimientox = movimientoboton1.Next(1, 5);
+                movimientox = movimientoboton1.Next(4, 5);
                 boton1.BackColor = coloraleatorio[colorboton1.Next(0, 9)]; ;
             }
             if (boton1.Location.Y > this.Height - 90)
@@ -222,7 +222,7 @@ namespace Pratica3
             }
             if (boton1.Location.Y < 1)
             {
-                movimientoy = movimientoboton1.Next(1, 5);
+                movimientoy = movimientoboton1.Next(4, 5);
                 this.BackColor = coloraleatorio[colorboton1.Next(0, 9)];
 
             }
@@ -251,7 +251,7 @@ namespace Pratica3
             }
             if (boton2.Location.X < 1)
             {
-                movimientox2 = movimientoboton2.Next(1, 5);
+                movimientox2 = movimientoboton2.Next(3, 5);
                 this.BackColor = coloraleatorio[colorboton2.Next(1,9)];
                 if(datosprogramado.Enabled)
                 this.Controls.Remove(datosprogramado);
@@ -275,7 +275,7 @@ namespace Pratica3
             }
             if (boton2.Location.Y < 1)
             {
-                movimientoy2 = movimientoboton2.Next(1, 5);
+                movimientoy2 = movimientoboton2.Next(3, 5);
                 
             }
 
